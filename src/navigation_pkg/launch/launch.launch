@@ -1,0 +1,16 @@
+<launch>  
+  <node name="ball_tracking_node" pkg="ball_tracking" type="ball_tracking_node.py" output="screen"></node>
+
+  <!-- Launch node2 from package2 -->
+  <node name="goal_tracking" pkg="goal_tracking_pkg" type="goal_tracking_node.py" output="screen">
+    <!-- Add parameters or remappings if needed -->
+  </node>
+
+  <!-- Launch node3 from package3 -->
+  <node name="kicker_node" pkg="kicker_pkg" type="kicker_node.py" output="screen">
+    <!-- Add parameters or remappings if needed -->
+  </node>
+  <node name="navigation_node" pkg="navigation_pkg" type="navigation_node.py" output="screen">
+    <!-- Add parameters or remappings if needed -->
+  </node>
+</launch>
