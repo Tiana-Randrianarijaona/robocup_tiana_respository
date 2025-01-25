@@ -14,8 +14,8 @@ class ColleagueNavigation():
         self.vel = Twist()
         self.cx = 0
         self.cy = 0
-        self.central_area_threshold_x = 50  # Threshold for x-axis
-        self.central_area_threshold_y = 50  # Threshold for y-axis
+        self.central_area_threshold_x = 150  # Threshold for x-axis
+        self.central_area_threshold_y = 300  # Threshold for y-axis
         self.hasNotCaughtTheAruco = True
 
     def pose_callback(self, msg):

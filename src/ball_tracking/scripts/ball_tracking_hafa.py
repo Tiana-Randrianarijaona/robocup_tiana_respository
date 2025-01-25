@@ -16,16 +16,13 @@ yellow_max = (31,255,255)
 class Tracker():
 	def __init__(self,
 			  trackerHelper = TrackerHelper(real_ball_radius=3.75, focal_length=750.),
-			#   yellowLower = (16,34,144),
-			#   yellowUpper = (43, 151, 255)):	
-			# yellowLower = (102,91,90),
-			# yellowUpper = (255,255,255)	):
-			#for blue ball
-			# yellowLower = (89,95,119),
-			# yellowUpper = (119,141,222)	):
-			#for Green balls
-				yellowLower = (45,49,106),
-				yellowUpper = (77,146,217)	):	
+			  yellowLower = (12,43,207),
+			  yellowUpper = (80, 152, 255)):	
+				# yellowLower = (16,67,224),
+			  	# yellowUpper = (29, 114, 255)):	
+			# for Green balls
+				# yellowLower = (8,67,237),
+				# yellowUpper = (255,255,255)	):	
 		# trackerHelper = TrackerHelper(real_ball_radius=5., focal_length=277.)
 		self.trackerHelper = trackerHelper
 
@@ -49,6 +46,8 @@ class Tracker():
 		x_real = 0
 		# grab the current frame
 		frame = frame_from_image_topic
+		cx = 0
+		cy = 0
 
 		# resize the frame, blur it, and convert it to the HSV
 		# color space
@@ -92,6 +91,8 @@ class Tracker():
 			((x, y), radius) = cv2.minEnclosingCircle(c)
 			M = cv2.moments(c)
 			center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+			cx = int(M["m10"] / M["m00"])
+			cy = int(M["m01"] / M["m00"])
 
 			# only proceed if the radius meets a minimum size
 			if radius > 0:
@@ -102,7 +103,7 @@ class Tracker():
 				cv2.circle(frame, center, 5, (0, 0, 255), -1)
 				# self.trackerHelper.setFocalLength(30.,radius)
 				# print(f"focal_length = {self.trackerHelper.focal_length}")				
-				distance, x_real = self.trackerHelper.getCoordinates(radius,x,center_x)
+				#distance, x_real = self.trackerHelper.getCoordinates(radius,x,center_x)
 				# print(f"Distance = {distance},Radius = {radius}")			
 
 		# update the points queue
@@ -122,4 +123,5 @@ class Tracker():
 
 		# show the frame to our screen
 		#cv2.imshow("Ball detection", frame)
-		return {"frame": frame, "distance":distance, "radius":radius, "x":x_real}		
+		print(center)
+		return {"frame": frame, "x_real": cx, "y_real":cy}		

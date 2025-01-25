@@ -10,7 +10,7 @@ class ServoControllerNode:
         rospy.init_node('servo_controller', anonymous=True)
         
         # Get parameters
-        self.serial_port = rospy.get_param('~serial_port', '/dev/ttyACM0')
+        self.serial_port = rospy.get_param('~serial_port', '/dev/ttyUSB0')
         self.baud_rate = rospy.get_param('~baud_rate', 115200)
         
         # Set up serial communication with Arduino

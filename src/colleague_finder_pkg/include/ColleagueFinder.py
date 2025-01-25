@@ -8,8 +8,8 @@ class ColleagueFinder:
         # Initialize the AprilTags detector options
         self.options = apriltag.DetectorOptions(families="tag36h11")
         self.detector = apriltag.Detector(self.options)
-        self.central_area_threshold_x = 50  # Threshold for x-axis
-        self.central_area_threshold_y = 50  # Threshold for y-axis
+        self.central_area_threshold_x = 100  # Threshold for x-axis
+        self.central_area_threshold_y = 300  # Threshold for y-axis
 
     #This method is the callback function to be executed whenever the frame from the camera is received
     def callback(self, frame_from_camera, targetMarkerId):

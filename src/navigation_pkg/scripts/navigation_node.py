@@ -24,16 +24,18 @@ class Navigation():
         self.kickerPub = rospy.Publisher('/kicking_decision', Bool, queue_size = 10)
         self.ballSub = rospy.Subscriber('/ball_data', Float32MultiArray, self.ball_callback)     
         # self.goalSub = rospy.Subscriber('/goal_data', Float32MultiArray, self.goal_callback)           
-        self.colleagueSub = rospy.Subscriber('/colleague_data', Float32MultiArray, self.colleague_callback)           
+        # self.colleagueSub = rospy.Subscriber('/colleague_data', Float32MultiArray, self.colleague_callback)           
         self.vel = Twist()    
         self.kickingDecision = Bool()    
         rate = rospy.Rate(50)        
 
     def ball_callback(self,msg):  
-        self.ballNavigator.pose_callback(msg)
-        if self.ballNavigator.hasNotCaughtTheBall:            
-            # self.pub.publish(self.ballNavigator.vel)
-            self.pubGripper.publish(self.ballNavigator.servoAngle)
+        self.ballNavigator.pose_callback(msg) 
+        self.pub.publish(self.ballNavigator.vel)
+        self.pubGripper.publish(self.ballNavigator.servoAngle)   
+        # if self.ballNavigator.hasNotCaughtTheBall:            
+        #     self.pub.publish(self.ballNavigator.vel)
+        #     self.pubGripper.publish(self.ballNavigator.servoAngle)
             
         
     # def goal_callback(self,msg) :
@@ -45,10 +47,10 @@ class Navigation():
 
     def colleague_callback(self,msg) :
         # if not (self.ballNavigator.hasNotCaughtTheBall):            
-        self.colleagueNavigator.pose_callback(msg)
-        # self.notifyKickerNode(self.goalNavigator.isReadyToKick)
-        # print(f"IsReadyToKick = {self.goalNavigator.isReadyToKick}")
-        self.pub.publish(self.colleagueNavigator.vel)
+        #     self.colleagueNavigator.pose_callback(msg)
+        #     # self.notifyKickerNode(self.goalNavigator.isReadyToKick)
+        #     # print(f"IsReadyToKick = {self.goalNavigator.isReadyToKick}")
+        #     self.pub.publish(self.colleagueNavigator.vel)
 
     def notifyKickerNode(self,kickingDecision):
         self.kickingDecision.data = kickingDecision
